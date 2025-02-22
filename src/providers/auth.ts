@@ -1,4 +1,5 @@
 import type { AuthProvider } from "@refinedev/core";
+import type { User } from "@/graphql/schema.types";
 
 
 

@@ -1,7 +1,9 @@
 import { Space, Tag } from "antd";
-
 import { User } from "@/graphql/schema.types";
 import CustomAvatar from "../custom-avatar";
+
+// Asumsikan tipe ini dihasilkan dari GraphQL
+type Maybe<T> = T | null | undefined;
 
 type Props = {
   user: User;
@@ -22,7 +24,7 @@ export const UserTag = ({ user }: Props) => {
     >
       <Space size={4}>
         <CustomAvatar
-          src={user.avatarUrl}
+          src={user.avatarUrl ?? undefined} // Mengubah null menjadi undefined
           name={user.name}
           style={{ display: "inline-flex" }}
         />

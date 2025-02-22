@@ -137,7 +137,7 @@ const ProjectCard = ({ id, title, dueDate, users }: ProjectCardProps) => {
             >
               {users.map((user) => (
                 <Tooltip key={user.id} title={user.name}>
-                  <CustomAvatar name={user.name} src={user?.avatarUrl} />
+                  <CustomAvatar name={user.name} src={user.avatarUrl ?? undefined} />
                 </Tooltip>
               ))}
             </Space>
