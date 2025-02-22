@@ -1,5 +1,5 @@
 import { CreateButton, DeleteButton, EditButton, FilterDropdown, getDefaultFilter, List, useTable } from '@refinedev/antd';
-import { useGo } from '@refinedev/core';
+import { HttpError, useGo } from '@refinedev/core';
 import { Input, Space, Table } from 'antd';
 import { COMPANIES_LIST_QUERY } from '@/graphql/queries';
 import { SearchOutlined } from '@ant-design/icons';
@@ -7,10 +7,17 @@ import CustomAvatar from '@/components/custom-avatar';
 import { Text } from '@/components/text';
 import { Company } from '@/graphql/schema.types';
 import { currencyNumber } from '@/utilities';
+import { GetFieldsFromList } from '@refinedev/nestjs-query';
+import { CompaniesListQuery } from '@/graphql/types';
+
 
 export const CompanyList = ({ children }: React.PropsWithChildren) => {
   const go = useGo();
-  const { tableProps, filters } = useTable({
+  const { tableProps, filters, setFilters  } = useTable<
+  GetFieldsFromList<CompaniesListQuery>,
+  HttpError,
+  GetFieldsFromList<CompaniesListQuery>
+  >({
     resource: 'companies',
     pagination: {
       pageSize: 12,
@@ -75,8 +82,9 @@ export const CompanyList = ({ children }: React.PropsWithChildren) => {
                   placeholder="Search Company"
                   value={filters?.[0]?.value || ''}
                   onChange={(e) => {
-                    filters[0].value = e.target.value;
-                    props.onFilterChange(filters);
+                    const newFilters = [...filters];
+                    newFilters[0].value = e.target?.value !== null ? e.target?.value : undefined;
+                    setFilters(newFilters);
                   }}
                 />
               </FilterDropdown>

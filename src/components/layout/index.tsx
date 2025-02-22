@@ -1,6 +1,7 @@
 import { ThemedLayoutV2, ThemedTitleV2, ThemedSiderV2 } from "@refinedev/antd";
 import Header from './header';
 import pemdaLogo from '../../images/pemda.png'; // Pastikan path benar
+import { Space } from "antd";
 
 const Layout = ({ children }: React.PropsWithChildren) => {
   console.log('Layout rendered, pemdaLogo:', pemdaLogo);
